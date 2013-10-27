@@ -164,6 +164,10 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+a {
+    color: #9C9EaE;
+}
+
 #banner {
     text-align: center;
 }
@@ -220,7 +224,7 @@ body {
     height: 180px !important;
     top: 50%;
     left: 50%;
-    margin-top: -100px;
+    margin-top: -120px;
     margin-left: -200px;
 }
 
@@ -234,7 +238,7 @@ footer {
     color: rgba(255,255,255,.10);
 }
 
-a {
+footer a {
     color: rgba(255,255,255,.10);
     text-decoration: none;
 }

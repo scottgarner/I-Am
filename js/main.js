@@ -1,3 +1,4 @@
+"use strict";
 
 var delay = 400;
 
@@ -8,6 +9,8 @@ var url = "http://google.com/complete/search?output=firefox&q=";
 
 
 $(document).ready( function() {
+
+	characters = characters.split("").sort( function() { return Math.random() - 0.5 } );
 
 	$("#return").click(function() {
 		$("#info").slideUp();	

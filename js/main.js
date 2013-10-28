@@ -79,14 +79,12 @@ function getSuggestion(query) {
 
 				if (validSuggestions.length == 1) {
 				
-					//console.log("GOT IT");
 					$("#query").html(validSuggestions[0]);
 					$("#suggestions").hide();
 					$("#actualize").show();
 				
 				} else if (validSuggestions.length == 0) {
 				
-					//console.log("No Suggestions");
 					$("#suggestions").html("No suggestions");
 					setTimeout( function() {
 						getSuggestion(searchQuery.slice(0,-1));
@@ -115,7 +113,6 @@ function getSuggestion(query) {
 						}
 					}
 
-					//console.log("Keep going");
 					stateIndex++;
 					setTimeout( function() {
 						getSuggestion(longestSuggestion);

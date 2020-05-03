@@ -5,25 +5,25 @@ var delay = 400;
 var stateIndex = 0;
 var states = [];
 var characters = "abcdefghijklmnopqurstuvwxyz ";
-var url = "http://google.com/complete/search?output=firefox&q=";
+var url = "https://google.com/complete/search?output=firefox&q=";
 
 
-$(document).ready( function() {
+$(document).ready(function () {
 
-	characters = characters.split("").sort( function() { return Math.random() - 0.5 } );
+	characters = characters.split("").sort(function () { return Math.random() - 0.5 });
 
-	$("#return").click(function() {
-		$("#info").slideUp();	
+	$("#return").click(function () {
+		$("#info").slideUp();
 		$("#search").slideDown();
 	});
 
-	$("#about").click(function() {
-		$("#info").slideDown();	
+	$("#about").click(function () {
+		$("#info").slideDown();
 		$("#search").slideUp();
-	});	
+	});
 
-	$("#actualize").click(function() {
-		getSuggestion("i am ");		
+	$("#actualize").click(function () {
+		getSuggestion("i am ");
 
 		$("#suggestions").show();
 		$("#actualize").hide();
@@ -36,10 +36,10 @@ $(document).ready( function() {
 
 function getSuggestion(query) {
 
-	if(!states[stateIndex]) {
+	if (!states[stateIndex]) {
 
 		states[stateIndex] = {
-			letterIndex: Math.floor(Math.random()*characters.length),
+			letterIndex: Math.floor(Math.random() * characters.length),
 			attempts: 1
 		}
 
@@ -51,8 +51,8 @@ function getSuggestion(query) {
 			delete states[stateIndex];
 			stateIndex--;
 
-			setTimeout( function() {
-				getSuggestion(query.slice(0,-1));
+			setTimeout(function () {
+				getSuggestion(query.slice(0, -1));
 			}, delay);
 
 			return;
@@ -66,14 +66,14 @@ function getSuggestion(query) {
 		{
 			url: queryURL,
 			dataType: "jsonp",
-			complete: function(data) {
-				
+			complete: function (data) {
+
 				var searchQuery = data.responseJSON[0];
 				var suggestions = data.responseJSON[1];
 
 				$("#suggestions").html("");
-				var validSuggestions = [];				
-				$(suggestions).each( function(key,value) {
+				var validSuggestions = [];
+				$(suggestions).each(function (key, value) {
 					if (value.indexOf(searchQuery) == 0 && value.length >= 11) {
 						validSuggestions.push(value);
 						$("#suggestions").append($("<div/>").html(value));
@@ -81,19 +81,19 @@ function getSuggestion(query) {
 				});
 
 				if (validSuggestions.length == 1) {
-				
+
 					$("#query").html(validSuggestions[0]);
 					$("#suggestions").hide();
 					$("#actualize").show();
-				
+
 				} else if (validSuggestions.length == 0) {
-				
+
 					$("#suggestions").html("No suggestions");
-					setTimeout( function() {
-						getSuggestion(searchQuery.slice(0,-1));
+					setTimeout(function () {
+						getSuggestion(searchQuery.slice(0, -1));
 					}, delay);
-				
-				}  else {
+
+				} else {
 
 					var longestSuggestion = validSuggestions[0];
 
@@ -112,17 +112,17 @@ function getSuggestion(query) {
 						if (common) {
 							break;
 						} else {
-							longestSuggestion = longestSuggestion.slice(0,-1);
+							longestSuggestion = longestSuggestion.slice(0, -1);
 						}
 					}
 
 					stateIndex++;
-					setTimeout( function() {
+					setTimeout(function () {
 						getSuggestion(longestSuggestion);
 					}, delay);
 				}
 
 			}
 		});
-} 
+}
 
